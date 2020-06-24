@@ -1,9 +1,11 @@
-import { DomModule } from './domManipulation';
-import { projectModule } from './projectModule';
+import { DomModule } from '../helpers/domManipulation';
+import { projectModule } from '../project/projectModule';
 
 export const ConfigurePage = (() => {
   const InitializeCreateProjectButton = () => {
+    
     DomModule.addOnClickListener('new-project', projectModule.createProject);
+    
   };
 
   return { InitializeCreateProjectButton };

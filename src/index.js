@@ -1,8 +1,7 @@
 import './style.scss';
-import { DomModule } from './domManipulation';
-import { ConfigurePage } from './configurePage';
+import { DomModule } from './helpers/domManipulation';
+import { ConfigurePage } from './helpers/configurePage';
 
 window.onload = function () {
-  DomModule.addOnClickListener('new-project', ConfigurePage.InitializeCreateProjectButton);
+  ConfigurePage.InitializeCreateProjectButton();
 };
-
