@@ -3,5 +3,5 @@ import { DomModule } from './helpers/domManipulation';
 import { ConfigurePage } from './helpers/configurePage';
 
 window.onload = function () {
-  ConfigurePage.InitializeCreateProjectButton();
+  ConfigurePage.InitializeCreateProjectButton();  
 };
