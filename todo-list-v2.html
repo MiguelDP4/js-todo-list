@@ -11,9 +11,72 @@
 
   <title>Hello, world!</title>
 </head>
-
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Todo List <span class="sr-only">(current)</span></a>
+        </li>
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+  <div class="container wrapper-content">
+    <div class="row">
+      <ul class="col-2 nav flex-column left-navbar">
+        <li class="nav-item">
+          <a class="nav-link active" >Projects</a> <button type="button" class="btn btn-outline-dark">+</button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Project 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Project 1</a>
+        </li>
+      </ul>
+      <div class="col-10 todo-list">
+        <section class="py-3 project-wrapper">
+          <h1>title project</h1>
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <img src="..." class="rounded mr-2" alt="...">
+              <strong class="mr-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    
+  </div>
+
+  
+  
+  <style>
+    .left-navbar{
+      background-color: aqua;
+    }
+    .todo-list{
+      background-color: blueviolet;
+    }
+  </style>
 </body>
 
 </html>
