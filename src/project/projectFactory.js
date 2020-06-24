@@ -1,7 +1,8 @@
-export const projectFactory = (title = "", description = "", tasks = []) => {
-  let tTitle = title;
+export const projectFactory = (index = 0, title = "Project", description = "", tasks = []) => {
   let tDescription = description;
   let tTask = [];
+  let tIndex = index;
+  let tTitle = `${title}-${index}`;
   
   const getTitle = () => tTitle ; 
   const getDescription = () => tDescription ;   
@@ -9,6 +10,7 @@ export const projectFactory = (title = "", description = "", tasks = []) => {
   const getTask = index => {
     return tTask[index];
   };   
+  const getIndex = () => tIndex;
 
   const setTitle = pTitle => {
     tTitle = pTitle; 
@@ -22,7 +24,7 @@ export const projectFactory = (title = "", description = "", tasks = []) => {
     tTask.push(task);
   }; 
   
-  return {  getTitle, getDescription, setTitle, setDescription, listTasks, getTask, addTask };
+  return {  getTitle, getDescription, setTitle, setDescription, listTasks, getTask, addTask, getIndex };
 
 
 };
