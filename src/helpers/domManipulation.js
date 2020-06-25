@@ -46,7 +46,8 @@ export const DomModule = (() => {
     return newAnchor;
   }
   
-  const checkElement = (parent) => {
+  const firstChildExists = (parent) => {
+    console.log(parent.childNodes);
     let tag = parent.childNodes[1];
     if (tag){
       return true;
@@ -54,6 +55,15 @@ export const DomModule = (() => {
       return false;
     }
   }
+
+  const appendTitle = (parent, title) => {
+    if (DomModule.firstChildExists(parent)){
+      parent.innerHTML = "";
+      parent.append(title);
+    } else {
+      parent.append(title);
+    }
+  };
 
   const addHtmlButton = (classArray, type, id, text) => {
     let newButton = document.createElement('button');
@@ -110,13 +120,14 @@ export const DomModule = (() => {
           addHtmlAnchor,
           addHtmlButton,
           addHtmlHeading,
-          checkElement,
+          firstChildExists,
           addHtmlDiv,
           addHtmlInput,
           hideElement,
           showElement,
           showElementFlex,
-          addHTMLSection
+          addHTMLSection,
+          appendTitle
         };
 })();
 

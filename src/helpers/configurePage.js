@@ -10,13 +10,10 @@ export const ConfigurePage = (() => {
     let thisProject = projectModule.getProjectByIndex(projectIndex);    
     let projectContainer = document.getElementById('project-container');
     let projectTitle =  DomModule.addHtmlHeading([], thisProject.getTitle(), 2)
+    
     projectTitle.id = `project-title-${projectIndex}`;
-    if (DomModule.checkElement(projectContainer)){
-      projectContainer.innerHTML = "";
-      projectContainer.append(projectTitle);
-    } else {
-      projectContainer.append(projectTitle);
-    }
+    
+    DomModule.appendTitle(projectContainer, projectTitle);
 
     let inputGroupDiv = DomModule.addHtmlDiv(['input-group'], `input-name-group-project-${projectIndex}`);
     let projectInput = DomModule.addHtmlInput(['form-control'],"text","Write your project title", `input-project-${projectIndex}`,thisProject.getTitle());
