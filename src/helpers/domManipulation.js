@@ -2,15 +2,29 @@ import { projectModule } from "../project/projectModule";
 
 export const DomModule = (() => {
 
+  const hideElement = (elementId) => {
+    let element = document.getElementById(elementId);
+    element.style.display = 'none';
+  }
+
+  const showElement = (elementId) => {
+    let element = document.getElementById(elementId);
+    element.style.display = 'block';
+  }
+
+  const showElementFlex = (elementId) => {
+    let element = document.getElementById(elementId);
+    element.style.display = 'flex';
+  }
+
   const addOnClickListener = (elementID, method, params = null) => {
     let element = document.getElementById(elementID);
-    if(params != null){
-      element.onclick = function() {
-          method(params);
-      };
-    } else {
-      element.onclick = method;
-    }      
+    element.addEventListener('click', function() {
+      if(params != null)
+        method(params);
+      else
+        method();
+    });     
   }
 
   const addHtmlListItem = (classArray) => {
@@ -70,13 +84,15 @@ export const DomModule = (() => {
     return newDiv;
    }
 
-   const addHtmlInput = (classArray, type, placeHolder) => {
+   const addHtmlInput = (classArray, type, placeHolder, id, text="") => {
     let newInput = document.createElement('input');
     for(let i = 0; i < classArray.length; i++){
       newInput.classList.add(classArray[i]);
     }
+    newInput.id = id;
     newInput.setAttribute("type",type);
     newInput.setAttribute("placeholder",placeHolder);
+    newInput.value = text;
     return newInput;
    }
 
@@ -87,7 +103,10 @@ export const DomModule = (() => {
           addHtmlHeading,
           checkElement,
           addHtmlDiv,
-          addHtmlInput
+          addHtmlInput,
+          hideElement,
+          showElement,
+          showElementFlex
         };
 })();
 
