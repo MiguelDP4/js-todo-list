@@ -34,15 +34,13 @@ export const ConfigurePage = (() => {
     DomModule.addOnClickListener(projectTitle.id, DomModule.showElementFlex, `input-name-group-project-${projectIndex}`);
     DomModule.addOnClickListener(projectTitle.id, DomModule.hideElement, projectTitle.id);
     DomModule.addOnClickListener(projectButtonSave.id, DomModule.showElement, projectTitle.id);
-    DomModule.addOnClickListener(projectButtonSave.id, function(){thisProject.setTitle(projectInput.value)});
-    DomModule.addOnClickListener(projectButtonSave.id, function(){console.log(projectInput.value);});
     
-    // DomModule.addOnClickListener(projectButtonSave.id, function() {
-    //   let titleTag = document.getElementById('project-title-0');
-    //   titleTag.innerHTML = thisProject.getTitle();
-    //   // projectTitle.innerHTML = thisProject.getTitle();
-    //   // console.log(projectInput.value);
-    // });
+    DomModule.addOnClickListener(projectButtonSave.id, function(){
+      thisProject.setTitle(projectInput.value)
+      let titleTag = document.getElementById(projectTitle.id);
+      titleTag.innerHTML = projectInput.value; 
+    });
+    
     projectTitle.addEventListener('click', function() {
       console.log(thisProject.getTitle());
       projectTitle.innerHTML = thisProject.getTitle();
