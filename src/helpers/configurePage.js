@@ -1,5 +1,6 @@
 import { DomModule } from '../helpers/domManipulation';
 import { projectModule } from '../project/projectModule';
+import { taskModule } from '../task/taskModule'
 
 export const ConfigurePage = (() => {
   const InitializeCreateProjectButton = () => {    
@@ -39,7 +40,6 @@ export const ConfigurePage = (() => {
     });
     
     projectTitle.addEventListener('click', function() {
-      console.log(thisProject.getTitle());
       projectTitle.innerHTML = thisProject.getTitle();      
     });  
     
@@ -51,20 +51,30 @@ export const ConfigurePage = (() => {
 
     DomModule.addOnClickListener(projectButtonSave.id, DomModule.hideElement, inputGroupDiv.id);
 
-    let projectDivButtonTask = DomModule.addHtmlButton(['btn', 'btn-success', 'fa', 'fa-plus', 'mt-2'],'button','button-add-task','New project task')
+    let projectDivButtonTask = DomModule.addHtmlButton(['btn', 'btn-success', 'fa', 'fa-plus', 'mt-2'],'button', `button-add-task-${projectIndex}`,'New project task')
     projectContainer.appendChild(projectDivButtonTask);
     
-    let sectionCardContainer = DomModule.addHTMLSection(['project-wrapper'],0);
+    let sectionCardContainer = DomModule.addHTMLSection(['project-wrapper']);
     let divCardContainer = DomModule.addHtmlDiv(['d-flex', 'flex-wrap', 'align-items-start'],'section-cards-container')
     projectContainer.appendChild(sectionCardContainer);
-
-    divCardContainer.appendChild(drawCard());    
-
     projectContainer.appendChild(divCardContainer);
+
+    projectDivButtonTask.addEventListener('click', function(){
+      taskModule.createTask();
+      updateTasks(projectContainer);
+    });
   };
 
-  const drawCard = () => {    
-    let cardContainer = DomModule.addHtmlDiv(['card', 'm-2','card-container'],'task-1');
+  const updateTasks = (projectContainer) => {
+    for(let i = 0; i < taskModule.getTaskArray().length; i++){
+      let newCard = drawCard(taskModule.getTaskByIndex());
+      console.log(newCard);
+      projectContainer.append(newCard);
+    }
+  }
+
+  const drawCard = (taskObject) => {    
+    let cardContainer = DomModule.addHtmlDiv(['card', 'm-2','card-container'],`task-`);
     
     let cardBody = DomModule.addHtmlDiv(['card-body'],0);
 

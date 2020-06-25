@@ -1,10 +1,12 @@
-export const taskFactory = (title = "", description = "", dueDate = "01/01/1990", priority = 1, checkList = []) => {
+export const taskFactory = (index = 0, title = "", description = "", dueDate = "01/01/1990", priority = 1, checkList = []) => {
+  let tIndex = index;
   let tTitle = title;
   let tDescription = description;
   let tDueDate = dueDate;
   let tPriority = priority;
   let tCheckList = checkList;
   
+  const getIndex = () => tIndex ; 
   const getTitle = () => tTitle ; 
   const getDescription = () => tDescription ; 
   const getDueDate = () => tDueDate ; 
@@ -29,7 +31,17 @@ export const taskFactory = (title = "", description = "", dueDate = "01/01/1990"
     tCheckList = pCheckList;
   }; 
   
-  return {  getTitle, getDescription, getDueDate, getPriority, getChecklist, setTitle, setDescription, setDueDate, setPriority, setChecklist };
+  return {  getTitle, 
+    getDescription, 
+    getDueDate, 
+    getPriority, 
+    getChecklist, 
+    setTitle, 
+    setDescription, 
+    setDueDate, 
+    setPriority, 
+    setChecklist,
+    getIndex };
 
 
 };
