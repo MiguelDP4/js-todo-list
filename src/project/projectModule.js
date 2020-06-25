@@ -20,6 +20,7 @@ export const projectModule = (() => {
       if(projectArray[i].getIndex() == index){
         return projectArray[i];
       }
+      i+=1;
     }
     return -1;
   };
