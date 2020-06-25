@@ -96,6 +96,15 @@ export const DomModule = (() => {
     return newInput;
    }
 
+   const addHTMLSection = (classArray, id) => {
+    let newSection = document.createElement('section');
+    for(let i = 0; i < classArray.length; i++){
+      newSection.classList.add(classArray[i]);
+    }
+    newSection.id=id;
+    return newSection;
+   };
+
   return { addOnClickListener, 
           addHtmlListItem, 
           addHtmlAnchor,
@@ -106,7 +115,8 @@ export const DomModule = (() => {
           addHtmlInput,
           hideElement,
           showElement,
-          showElementFlex
+          showElementFlex,
+          addHTMLSection
         };
 })();
 
