@@ -12,7 +12,16 @@ export const projectModule = (() => {
     }
     let newProject = projectFactory(newIndex);
     projectArray.push(newProject);
-    ConfigurePage.drawProject(newProject);
+    ConfigurePage.drawProjectButton(newProject);
   };
-  return { createProject };
+  const getProjectByIndex = (index) => {
+    let i = 0;
+    while(i < projectArray.length){
+      if(projectArray[i].getIndex() == index){
+        return projectArray[i];
+      }
+    }
+    return -1;
+  };
+  return { createProject, getProjectByIndex };
 })();

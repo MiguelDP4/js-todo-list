@@ -2,31 +2,54 @@ import { projectModule } from "../project/projectModule";
 
 export const DomModule = (() => {
 
-  const addOnClickListener = (elementID, method) => {
+  const addOnClickListener = (elementID, method, params = null) => {
     let element = document.getElementById(elementID);
-    element.onclick = method;
-    return element;
+    if(params != null){
+      element.onclick = function() {
+          method(params);
+      };
+    } else {
+      element.onclick = method;
+    }      
   }
 
-  const addHtmlListItem = (className) => {
+  const addHtmlListItem = (classArray) => {
     let newListItem = document.createElement('li');
-    newListItem.classList.add(className);
+    for(let i = 0; i < classArray.length; i++){
+      newListItem.classList.add(classArray[i]);
+    }
     return newListItem;
   }
 
-  const addHtmlAnchor = (className, href, text) => {
+  const addHtmlAnchor = (classArray, href, text) => {
     let newAnchor = document.createElement('a');
-    newAnchor.classList.add(className);
+    for(let i = 0; i < classArray.length; i++){
+      newAnchor.classList.add(classArray[i]);
+    }
     newAnchor.href = href;
     newAnchor.innerHTML = text;
     return newAnchor;
   }
 
-  //const openProject = (projectElement) => {
+  const addHtmlButton = () => {
+    
+  }
 
-  //}
+  const addHtmlHeading = (classArray, text, headingSize) => {
+    let newHeading = document.createElement(`h${headingSize}`);
+    for(let i = 0; i < classArray.length; i++){
+      newHeading.classList.add(classArray[i]);
+    }
+    newHeading.innerHTML = text;
+    return newHeading;
+  }
 
-  return { addOnClickListener, addHtmlListItem, addHtmlAnchor};
+  return { addOnClickListener, 
+          addHtmlListItem, 
+          addHtmlAnchor,
+          addHtmlButton,
+          addHtmlHeading
+        };
 })();
 
 
