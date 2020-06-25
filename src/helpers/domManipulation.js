@@ -8,24 +8,25 @@ export const DomModule = (() => {
     return element;
   }
 
-  const addProject = (projectElement) => {
+  const addHtmlListItem = (className) => {
     let newListItem = document.createElement('li');
-    newListItem.classList.add('nav-item');
+    newListItem.classList.add(className);
+    return newListItem;
+  }
+
+  const addHtmlAnchor = (className, href, text) => {
     let newAnchor = document.createElement('a');
-    newAnchor.classList.add('nav-link');
-    newAnchor.href = "#";
-    newAnchor.innerHTML = projectElement.getTitle();
-    newListItem.append(newAnchor);
-    let projectList = document.getElementById('project-list');
-    projectList.append(newListItem);
-    projectList.addOnClickListener(openProject);
+    newAnchor.classList.add(className);
+    newAnchor.href = href;
+    newAnchor.innerHTML = text;
+    return newAnchor;
   }
 
-  const openProject = (projectElement) => {
+  //const openProject = (projectElement) => {
 
-  }
+  //}
 
-  return { addOnClickListener, addProject };
+  return { addOnClickListener, addHtmlListItem, addHtmlAnchor};
 })();
 
 

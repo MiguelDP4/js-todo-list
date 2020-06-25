@@ -1,6 +1,6 @@
 import { projectFactory } from '../project/projectFactory'
 import { taskFactory } from '../task/taskFactory'
-import { DomModule } from '../helpers/domManipulation';
+import { ConfigurePage } from '../helpers/configurePage';
 
 export const projectModule = (() => {
   
@@ -12,7 +12,7 @@ export const projectModule = (() => {
     }
     let newProject = projectFactory(newIndex);
     projectArray.push(newProject);
-    DomModule.addProject(newProject);
+    ConfigurePage.drawProject(newProject);
   };
   return { createProject };
 })();
