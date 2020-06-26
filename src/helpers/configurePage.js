@@ -80,32 +80,17 @@ export const ConfigurePage = (() => {
     let cardBody = DomModule.addHtmlDiv(['card-body'],0);
     
     //Card title heading
-    let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
-    cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
-    cardBody.appendChild(cardTitleHeading);
+    //let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
+    //cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
+    //cardBody.appendChild(cardTitleHeading);
     
-    //Card title editor
-    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group'],`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
-    
-    let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
-    let cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
-    
-    cardTitleButtonSave.addEventListener('click', function(){
-      taskObject.setTitle(cardTitleInput.value);
-      cardTitleHeading.innerHTML = taskObject.getTitle();
-    }); 
-    
-    cardTitleButtonContainer.append(cardTitleButtonSave);    
+    let cardTitleEditorContainer = drawInputField(projectObject, taskObject);
+    let cardDescriptionEditorContainer = drawInputField(projectObject, taskObject);
 
-    cardTitleEditorContainer.append(cardTitleInput);
-    cardTitleEditorContainer.append(cardTitleButtonContainer);
-    
     cardBody.appendChild(cardTitleEditorContainer);
+    cardBody.appendChild(cardDescriptionEditorContainer);
 
-    
-
-    cardBody.appendChild(DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6));
+    //cardBody.appendChild(DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6));
 
     let divButtonsCard = DomModule.addHtmlDiv(['d-flex','flex-row','justify-content-between', 'mt-3']);
     
@@ -117,6 +102,27 @@ export const ConfigurePage = (() => {
 
     return cardContainer;
   };
+  
+  const drawInputField = (projectObject, taskObject) => {
+    //Card title editor
+    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
+    
+    //let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
+    let cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
+    
+    //cardTitleButtonSave.addEventListener('click', function(){
+    //  taskObject.setTitle(cardTitleInput.value);
+    //  cardTitleHeading.innerHTML = taskObject.getTitle();
+    //}); 
+    
+    //cardTitleButtonContainer.append(cardTitleButtonSave);    
+
+    cardTitleEditorContainer.append(cardTitleInput);
+    cardTitleEditorContainer.append(cardTitleButtonContainer);
+
+    return cardTitleEditorContainer;
+  }
 
   const drawProjectButton = (projectElement) => {    
     let newListItem  = DomModule.addHtmlListItem(['nav-item']);
