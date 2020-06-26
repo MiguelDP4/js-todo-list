@@ -80,7 +80,7 @@ export const ConfigurePage = (() => {
     let cardBody = DomModule.addHtmlDiv(['card-body'],0);
     
     //Card title heading
-    let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
+    let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], taskObject.getTitle(), 5);
     cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardTitleHeading.addEventListener('click', function() {      
@@ -91,7 +91,7 @@ export const ConfigurePage = (() => {
 
     cardBody.appendChild(cardTitleHeading);    
 
-    let cardDescription = DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6);
+    let cardDescription = DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], taskObject.getDescription(), 6);
     cardDescription.id = `task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardDescription.addEventListener('click', function(){
@@ -147,7 +147,7 @@ export const ConfigurePage = (() => {
       taskObject.setDescription(cardDescriptionInput.value);            
       let elementTitle = document.getElementById(`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       elementTitle.remove();
-      
+
       DomModule.showElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       let taskDescription = document.getElementById(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       taskDescription.innerHTML = taskObject.getDescription();      
