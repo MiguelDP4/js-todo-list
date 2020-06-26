@@ -62,7 +62,7 @@ export const ConfigurePage = (() => {
 
     projectDivButtonTask.addEventListener('click', function(){
       thisProject.createTask();
-      // taskModule.createTask();
+      //taskModule.createTask();
       updateTasks(divCardContainer, thisProject);
     });
   };
@@ -83,23 +83,28 @@ export const ConfigurePage = (() => {
     let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
     cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
     cardBody.appendChild(cardTitleHeading);
-
+    
     //Card title editor
-    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group'], 
-    `input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text",
-    "Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
-    cardTitleEditorContainer.append(cardTitleInput);
+    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group'],`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
+    
+    let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
     let cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
-    let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",
-    `button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
-    cardTitleButtonContainer.append(cardTitleButtonSave);
-    cardTitleEditorContainer.append(cardTitleButtonContainer);
-    console.log(cardTitleButtonSave.id);
-    DomModule.addOnClickListener(cardTitleButtonSave.id, function(){
+    
+    cardTitleButtonSave.addEventListener('click', function(){
       taskObject.setTitle(cardTitleInput.value);
       cardTitleHeading.innerHTML = taskObject.getTitle();
-    });
+    }); 
+    
+    cardTitleButtonContainer.append(cardTitleButtonSave);    
+
+    cardTitleEditorContainer.append(cardTitleInput);
+    cardTitleEditorContainer.append(cardTitleButtonContainer);
+    
+    cardBody.appendChild(cardTitleEditorContainer);
+
+    
+
     cardBody.appendChild(DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6));
 
     let divButtonsCard = DomModule.addHtmlDiv(['d-flex','flex-row','justify-content-between', 'mt-3']);
