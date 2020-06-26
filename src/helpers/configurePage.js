@@ -87,7 +87,7 @@ export const ConfigurePage = (() => {
       let cardTitleEditorContainer = drawInputFieldTitle(projectObject, taskObject);
       cardBody.prepend(cardTitleEditorContainer);
       DomModule.hideElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    });  
+    });
 
     cardBody.appendChild(cardTitleHeading);    
 
@@ -101,6 +101,8 @@ export const ConfigurePage = (() => {
     });
 
     cardBody.appendChild(cardDescription);
+
+
 
     let divButtonsCard = DomModule.addHtmlDiv(['d-flex','flex-row','justify-content-between', 'mt-3']);
     
@@ -138,15 +140,15 @@ export const ConfigurePage = (() => {
 
   const drawInputFieldDescription = (projectObject, taskObject) => {    
     let cardDescriptionEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    let cardDescriptionInput = DomModule.addHtmlInput(['form-control'],"text","Write your task description", `input-description-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
+    let cardDescriptionInput = DomModule.addHtmlInput(['form-control'],"text","Write your task description", `input-description-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getDescription());
     
     let cardDescriptionButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
     let cardDescriptionButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
     
     cardDescriptionButtonSave.addEventListener('click', function(){      
       taskObject.setDescription(cardDescriptionInput.value);            
-      let elementTitle = document.getElementById(`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      elementTitle.remove();
+      let elementDescription = document.getElementById(`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      elementDescription.remove();
 
       DomModule.showElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       let taskDescription = document.getElementById(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);

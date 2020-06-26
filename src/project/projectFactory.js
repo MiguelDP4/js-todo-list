@@ -41,7 +41,11 @@ export const projectFactory = (index = 0, title = "Project", description = "", t
     if(tTask.length != 0) {
       newIndex = tTask[tTask.length-1].getIndex()+1;
     }
-    let newTask = taskFactory(newIndex);
+    let newTask = taskFactory(newIndex,
+                              `Task ${newIndex} title`,
+                              `Task ${newIndex} description`,
+                              );
+    console.log(newTask.getTitle());
     tTask.push(newTask);
   };
   
