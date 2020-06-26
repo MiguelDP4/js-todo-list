@@ -84,12 +84,13 @@ export const DomModule = (() => {
     return newHeading;
   }
 
-   const addHtmlDiv = (classArray, id) => {
+   const addHtmlDiv = (classArray, id = null) => {
     let newDiv = document.createElement('div');
     for(let i = 0; i < classArray.length; i++){
       newDiv.classList.add(classArray[i]);
     }
-    newDiv.id = id;
+    if(id != null)
+      newDiv.id = id;
     return newDiv;
    }
 
