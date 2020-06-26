@@ -5,6 +5,7 @@ import { ConfigurePage } from '../helpers/configurePage';
 export const projectModule = (() => {
   
   const projectArray = [];
+  
   const createProject = () => {
     let newIndex = 0;
     if(projectArray.length != 0) {
@@ -14,6 +15,7 @@ export const projectModule = (() => {
     projectArray.push(newProject);
     ConfigurePage.drawProjectButton(newProject);
   };
+
   const getProjectByIndex = (index) => {
     let i = 0;
     while(i < projectArray.length){
@@ -24,5 +26,17 @@ export const projectModule = (() => {
     }
     return -1;
   };
-  return { createProject, getProjectByIndex };
+
+  const getProjectAmount = () => {
+    return projectArray.length;
+  };
+
+  const loadFromStorage = (key) => {
+    projectArray = localStorage.getItem(key);
+  };
+
+  const saveToStorage = (key) => {
+    localStorage.setItem(key, projectArray);
+  }
+  return { createProject, getProjectByIndex, getProjectAmount, loadFromStorage, saveToStorage };
 })();

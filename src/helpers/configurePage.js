@@ -3,11 +3,25 @@ import { projectModule } from '../project/projectModule';
 import { taskModule } from '../task/taskModule'
 
 export const ConfigurePage = (() => {
-  const InitializeCreateProjectButton = () => {    
+  const InitializePage = () => {    
     DomModule.addOnClickListener('new-project', projectModule.createProject);
+    document.getElementById('save-everything').addEventListener('click', function() {
+      projectModule.saveToStorage('todoList');
+    });
+    if(localStorage.getItem('todoList') == null){
+      projectModule.createProject();
+      projectModule.getProjectByIndex(0).createTask();
+      drawProject(0);
+      let divCardContainer = document.getElementById(`task-container-project-0`);
+      let thisProject = projectModule.getProjectByIndex(0);
+      updateTasks(divCardContainer, thisProject);
+    } else {
+      projectModule.loadFromStorage('todoList');
+    }
+    
   };
 
-  const drawProject = (projectIndex) => {    
+  const drawProject = (projectIndex) => {
     let thisProject = projectModule.getProjectByIndex(projectIndex);    
     let projectContainer = document.getElementById('project-container');
     let projectTitle =  DomModule.addHtmlHeading([], thisProject.getTitle(), 2)
@@ -62,7 +76,6 @@ export const ConfigurePage = (() => {
 
     projectDivButtonTask.addEventListener('click', function(){
       thisProject.createTask();
-      //taskModule.createTask();
       updateTasks(divCardContainer, thisProject);
     });
   };
@@ -108,10 +121,10 @@ export const ConfigurePage = (() => {
     
     divButtonsCard.appendChild(DomModule.addHtmlAnchor(['card-link','m-0','btn','btn-primary'],'#',"Complete",0));
     divButtonsCard.appendChild(DomModule.addHtmlAnchor(['card-link','m-0','btn','btn-danger'],'#',"Delete",0));
-    
+    cardBody.append(drawSelectPriority(projectObject, taskObject));
+    cardBody.append(drawDateInput(projectObject, taskObject));
     cardBody.appendChild(divButtonsCard);
     cardContainer.appendChild(cardBody);
-
     return cardContainer;
   };
   
@@ -153,12 +166,53 @@ export const ConfigurePage = (() => {
       DomModule.showElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       let taskDescription = document.getElementById(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
       taskDescription.innerHTML = taskObject.getDescription();      
-    }); 
+    });
     
     cardDescriptionButtonContainer.append(cardDescriptionButtonSave);    
     cardDescriptionEditorContainer.append(cardDescriptionInput);
     cardDescriptionEditorContainer.append(cardDescriptionButtonContainer);
     return cardDescriptionEditorContainer;
+  }
+
+  const drawSelectPriority = (projectObject, taskObject) => {
+    let selectContainer = DomModule.addHtmlDiv(['form-group']);
+    let selectPriorityTag = DomModule.addHtmlSelect(['form-control'], `select-task-priority-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    let defaultOption = document.createElement('option');
+    defaultOption.innerHTML = 'Set the priority of the task';
+    defaultOption.selected = 'selected';
+    selectPriorityTag.append(defaultOption);
+    let newOption1 = document.createElement('option');
+    newOption1.innerHTML = 'Low';
+    newOption1.value = '1';
+    selectPriorityTag.append(newOption1);
+    let newOption2 = document.createElement('option');
+    newOption2.innerHTML = 'Medium';
+    newOption2.value = '2';
+    selectPriorityTag.append(newOption2);
+    let newOption3 = document.createElement('option');
+    newOption3.innerHTML = 'High';
+    newOption3.value = '3';
+    selectPriorityTag.append(newOption3);
+    
+
+    selectContainer.append(selectPriorityTag);
+    selectPriorityTag.addEventListener('change', function() {
+      taskObject.setPriority(Number(selectPriorityTag.value));
+    });
+    return selectContainer;
+  }
+
+  const drawDateInput = (projectObject, taskObject) => {
+    let inputContainer = DomModule.addHtmlDiv(['input-group', 'mb-3']);
+    let inputObject = DomModule.addHtmlInput(['w-100'], 'date', '', `date-input-${projectObject.getIndex()}-${taskObject.getIndex()}`, '');
+    console.log(taskObject.getDueDate());
+    inputObject.value = taskObject.getDueDate();
+    inputContainer.append(inputObject);
+    inputObject.addEventListener('change', function() {
+      taskObject.setDueDate(inputObject.value);
+      console.log(taskObject.getDueDate());
+    });
+    return inputContainer;
   }
 
   const drawProjectButton = (projectElement) => {    
@@ -178,5 +232,5 @@ export const ConfigurePage = (() => {
     });
   };
 
-  return { InitializeCreateProjectButton, drawProjectButton, drawProject, drawCard };
+  return { InitializePage, drawProjectButton, drawProject, drawCard };
 })();

@@ -1,4 +1,6 @@
-import { projectModule } from "../project/projectModule";
+import {
+  projectModule
+} from "../project/projectModule";
 
 export const DomModule = (() => {
 
@@ -19,17 +21,17 @@ export const DomModule = (() => {
 
   const addOnClickListener = (elementID, method, params = null) => {
     let element = document.getElementById(elementID);
-    element.addEventListener('click', function() {
-      if(params != null)
+    element.addEventListener('click', function () {
+      if (params != null)
         method(params);
       else
         method();
-    });     
+    });
   }
 
   const addHtmlListItem = (classArray) => {
     let newListItem = document.createElement('li');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newListItem.classList.add(classArray[i]);
     }
     return newListItem;
@@ -37,26 +39,26 @@ export const DomModule = (() => {
 
   const addHtmlAnchor = (classArray, href, text, id) => {
     let newAnchor = document.createElement('a');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newAnchor.classList.add(classArray[i]);
     }
     newAnchor.href = href;
     newAnchor.innerHTML = text;
-    newAnchor.id= id;
+    newAnchor.id = id;
     return newAnchor;
   }
-  
+
   const firstChildExists = (parent) => {
     let tag = parent.childNodes[1];
-    if (tag){
+    if (tag) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
 
   const appendTitle = (parent, title) => {
-    if (DomModule.firstChildExists(parent)){
+    if (DomModule.firstChildExists(parent)) {
       parent.innerHTML = "";
       parent.append(title);
     } else {
@@ -66,10 +68,10 @@ export const DomModule = (() => {
 
   const addHtmlButton = (classArray, type, id, text) => {
     let newButton = document.createElement('button');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newButton.classList.add(classArray[i]);
     }
-    newButton.setAttribute("type",type);
+    newButton.setAttribute("type", type);
     newButton.id = id;
     newButton.innerHTML = text;
     return newButton;
@@ -77,62 +79,79 @@ export const DomModule = (() => {
 
   const addHtmlHeading = (classArray, text, headingSize) => {
     let newHeading = document.createElement(`h${headingSize}`);
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newHeading.classList.add(classArray[i]);
     }
     newHeading.innerHTML = text;
     return newHeading;
   }
 
-   const addHtmlDiv = (classArray, id = null) => {
+  const addHtmlDiv = (classArray, id = null) => {
     let newDiv = document.createElement('div');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newDiv.classList.add(classArray[i]);
     }
-    if(id != null)
+    if (id != null)
       newDiv.id = id;
     return newDiv;
-   }
+  }
 
-   const addHtmlInput = (classArray, type, placeHolder, id, text="") => {
+  const addHtmlSelect = (classArray, id = null) => {
+    let newSelect = document.createElement('select');
+    for (let i = 0; i < classArray.length; i++) {
+      newSelect.classList.add(classArray[i]);
+    }
+    if (id != null)
+      newSelect.id = id;
+    return newSelect;
+  }
+
+  const addHtmlInput = (classArray, type, placeHolder, id, text = "") => {
     let newInput = document.createElement('input');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newInput.classList.add(classArray[i]);
     }
     newInput.id = id;
-    newInput.setAttribute("type",type);
-    newInput.setAttribute("placeholder",placeHolder);
+    newInput.setAttribute("type", type);
+    newInput.setAttribute("placeholder", placeHolder);
     newInput.value = text;
     return newInput;
-   }
+  }
 
-   const addHTMLSection = (classArray, id = null) => {
+  const addHtmlSpan = (classArray, text = '') => {
+    let newSpan = document.createElement('span');
+    for (let i = 0; i < classArray.length; i++) {
+      newSpan.classList.add(classArray[i]);
+    }
+    newSpan.text = text;
+    return newSpan;
+  }
+
+  const addHTMLSection = (classArray, id = null) => {
     let newSection = document.createElement('section');
-    for(let i = 0; i < classArray.length; i++){
+    for (let i = 0; i < classArray.length; i++) {
       newSection.classList.add(classArray[i]);
     }
-    if(id != null)
+    if (id != null)
       newSection.id = id;
     return newSection;
-   };
+  };
 
-  return { addOnClickListener, 
-          addHtmlListItem, 
-          addHtmlAnchor,
-          addHtmlButton,
-          addHtmlHeading,
-          firstChildExists,
-          addHtmlDiv,
-          addHtmlInput,
-          hideElement,
-          showElement,
-          showElementFlex,
-          addHTMLSection,
-          appendTitle
-        };
+  return {
+    addOnClickListener,
+    addHtmlListItem,
+    addHtmlAnchor,
+    addHtmlButton,
+    addHtmlHeading,
+    firstChildExists,
+    addHtmlDiv,
+    addHtmlInput,
+    hideElement,
+    showElement,
+    showElementFlex,
+    addHTMLSection,
+    appendTitle,
+    addHtmlSelect,
+    addHtmlSpan
+  };
 })();
-
-
-
-
-  

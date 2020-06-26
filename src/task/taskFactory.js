@@ -2,9 +2,13 @@ export const taskFactory = (index = 0, title = "", description = "", dueDate = "
   let tIndex = index;
   let tTitle = title;
   let tDescription = description;
-  let tDueDate = dueDate;
   let tPriority = priority;
   let tCheckList = checkList;
+  let today = new Date();
+  let day = String(today.getDate()).padStart(2, '0');
+  let month = String(today.getMonth() + 1).padStart(2, '0');;
+  let year = String(today.getFullYear());
+  let tDueDate = `${year}-${month}-${day}`;
   
   const getIndex = () => tIndex ; 
   const getTitle = () => tTitle ; 
@@ -21,9 +25,7 @@ export const taskFactory = (index = 0, title = "", description = "", dueDate = "
     tDescription = pDescription;
   }; 
 
-  const setDueDate = pdueDate =>  {
-    tDueDate = pdueDate;
-  }; 
+  const setDueDate = pdueDate =>  { tDueDate = pdueDate }; 
   const setPriority = pPriority =>  {
     tPriority = pPriority;
   }; 
