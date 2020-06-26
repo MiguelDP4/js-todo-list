@@ -56,20 +56,22 @@ export const ConfigurePage = (() => {
     
     let sectionCardContainer = DomModule.addHTMLSection(['project-wrapper']);
     let divCardContainer = DomModule.addHtmlDiv(['d-flex', 'flex-wrap', 'align-items-start'],'section-cards-container')
+    divCardContainer.id = `task-container-project-${thisProject.getIndex()}`;
     projectContainer.appendChild(sectionCardContainer);
     projectContainer.appendChild(divCardContainer);
 
     projectDivButtonTask.addEventListener('click', function(){
-      taskModule.createTask();
-      updateTasks(projectContainer);
+      thisProject.createTask();
+      // taskModule.createTask();
+      updateTasks(divCardContainer, thisProject);
     });
   };
 
-  const updateTasks = (projectContainer) => {
-    for(let i = 0; i < taskModule.getTaskArray().length; i++){
-      let newCard = drawCard(taskModule.getTaskByIndex());
-      console.log(newCard);
-      projectContainer.append(newCard);
+  const updateTasks = (divCardContainer, thisProject) => {
+    divCardContainer.innerHTML = "";
+    for(let i = 0; i < thisProject.listTasks().length; i++){
+      let newCard = drawCard(thisProject.getTaskByIndex(i));
+      divCardContainer.append(newCard);
     }
   }
 
@@ -94,14 +96,19 @@ export const ConfigurePage = (() => {
 
   const drawProjectButton = (projectElement) => {    
     let newListItem  = DomModule.addHtmlListItem(['nav-item']);
-    let projectId= `link-project-${projectElement.getIndex()}`;
+    let projectId = `link-project-${projectElement.getIndex()}`;
     let newAnchor  = DomModule.addHtmlAnchor(['nav-link'], '#', projectElement.getTitle(), projectId);
     
     newListItem.append(newAnchor);
     let projectList = document.getElementById('project-list');
     projectList.append(newListItem);
-    DomModule.addOnClickListener(projectId, drawProject, projectElement.getIndex());
-    
+
+    DomModule.addOnClickListener(projectId, function() {
+      drawProject(projectElement.getIndex());
+      let divCardContainer = document.getElementById(`task-container-project-${projectElement.getIndex()}`);
+      let thisProject = projectModule.getProjectByIndex(projectElement.getIndex());
+      updateTasks(divCardContainer, thisProject);
+    });
   };
 
   return { InitializeCreateProjectButton, drawProjectButton, drawProject, drawCard };
