@@ -84,7 +84,7 @@ export const ConfigurePage = (() => {
     cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardTitleHeading.addEventListener('click', function() {      
-      let cardTitleEditorContainer = drawInputField(projectObject, taskObject);
+      let cardTitleEditorContainer = drawInputFieldTitle(projectObject, taskObject);
       cardBody.prepend(cardTitleEditorContainer);
       DomModule.hideElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     });  
@@ -95,7 +95,7 @@ export const ConfigurePage = (() => {
     cardDescription.id = `task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardDescription.addEventListener('click', function(){
-      let cardDescriptionEditorContainer = drawInputField(projectObject, taskObject);
+      let cardDescriptionEditorContainer = drawInputFieldDescription(projectObject, taskObject);
       cardBody.insertBefore(cardDescriptionEditorContainer,cardDescription);
       DomModule.hideElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     });
@@ -113,28 +113,50 @@ export const ConfigurePage = (() => {
     return cardContainer;
   };
   
-  const drawInputField = (projectObject, taskObject) => {
-    //Card title editor
-    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
+  const drawInputFieldTitle = (projectObject, taskObject) => {    
+    let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-title-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-title-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
     
     let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
     let cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
     
     cardTitleButtonSave.addEventListener('click', function(){      
-      taskObject.setTitle(cardTitleInput.value);      
-      DomModule.hideElement(`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      taskObject.setTitle(cardTitleInput.value);            
+      let elementTitle = document.getElementById(`input-title-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      elementTitle.remove();
+
       DomModule.showElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      
-      cardTitleHeading.innerHTML = taskObject.getTitle();
+      let taskTitle = document.getElementById(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      taskTitle.innerHTML = taskObject.getTitle();      
     }); 
     
     cardTitleButtonContainer.append(cardTitleButtonSave);    
-
     cardTitleEditorContainer.append(cardTitleInput);
     cardTitleEditorContainer.append(cardTitleButtonContainer);
-
     return cardTitleEditorContainer;
+  }
+
+  const drawInputFieldDescription = (projectObject, taskObject) => {    
+    let cardDescriptionEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    let cardDescriptionInput = DomModule.addHtmlInput(['form-control'],"text","Write your task description", `input-description-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
+    
+    let cardDescriptionButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
+    let cardDescriptionButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
+    
+    cardDescriptionButtonSave.addEventListener('click', function(){      
+      taskObject.setDescription(cardDescriptionInput.value);            
+      let elementTitle = document.getElementById(`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      elementTitle.remove();
+      
+      DomModule.showElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      let taskDescription = document.getElementById(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      taskDescription.innerHTML = taskObject.getDescription();      
+    }); 
+    
+    cardDescriptionButtonContainer.append(cardDescriptionButtonSave);    
+    cardDescriptionEditorContainer.append(cardDescriptionInput);
+    cardDescriptionEditorContainer.append(cardDescriptionButtonContainer);
+    return cardDescriptionEditorContainer;
   }
 
   const drawProjectButton = (projectElement) => {    
