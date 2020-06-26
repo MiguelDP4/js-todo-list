@@ -80,17 +80,27 @@ export const ConfigurePage = (() => {
     let cardBody = DomModule.addHtmlDiv(['card-body'],0);
     
     //Card title heading
-    //let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
-    //cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
-    //cardBody.appendChild(cardTitleHeading);
-    
-    let cardTitleEditorContainer = drawInputField(projectObject, taskObject);
-    let cardDescriptionEditorContainer = drawInputField(projectObject, taskObject);
+    let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], 'Card title', 5);
+    cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
-    cardBody.appendChild(cardTitleEditorContainer);
-    cardBody.appendChild(cardDescriptionEditorContainer);
+    cardTitleHeading.addEventListener('click', function() {      
+      let cardTitleEditorContainer = drawInputField(projectObject, taskObject);
+      cardBody.prepend(cardTitleEditorContainer);
+      DomModule.hideElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    });  
 
-    //cardBody.appendChild(DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6));
+    cardBody.appendChild(cardTitleHeading);    
+
+    let cardDescription = DomModule.addHtmlHeading(['card-subtitle','mb-2','text-muted'], 'Card subtitle', 6);
+    cardDescription.id = `task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`;
+
+    cardDescription.addEventListener('click', function(){
+      let cardDescriptionEditorContainer = drawInputField(projectObject, taskObject);
+      cardBody.insertBefore(cardDescriptionEditorContainer,cardDescription);
+      DomModule.hideElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+    });
+
+    cardBody.appendChild(cardDescription);
 
     let divButtonsCard = DomModule.addHtmlDiv(['d-flex','flex-row','justify-content-between', 'mt-3']);
     
@@ -108,15 +118,18 @@ export const ConfigurePage = (() => {
     let cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group','pb-3'],`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     let cardTitleInput = DomModule.addHtmlInput(['form-control'],"text","Write your task title", `input-task-${projectObject.getIndex()}-${taskObject.getIndex()}`,taskObject.getTitle());
     
-    //let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
+    let cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], "button",`button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, "Save");
     let cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
     
-    //cardTitleButtonSave.addEventListener('click', function(){
-    //  taskObject.setTitle(cardTitleInput.value);
-    //  cardTitleHeading.innerHTML = taskObject.getTitle();
-    //}); 
+    cardTitleButtonSave.addEventListener('click', function(){      
+      taskObject.setTitle(cardTitleInput.value);      
+      DomModule.hideElement(`input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      DomModule.showElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
+      
+      cardTitleHeading.innerHTML = taskObject.getTitle();
+    }); 
     
-    //cardTitleButtonContainer.append(cardTitleButtonSave);    
+    cardTitleButtonContainer.append(cardTitleButtonSave);    
 
     cardTitleEditorContainer.append(cardTitleInput);
     cardTitleEditorContainer.append(cardTitleButtonContainer);
