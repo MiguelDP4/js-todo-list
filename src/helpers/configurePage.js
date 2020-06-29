@@ -9,8 +9,9 @@ export const ConfigurePage = (() => {
       drawProjectButton(newProject);      
     });
     
-    document.getElementById('save-everything').addEventListener('click', function() {
-      projectModule.saveToStorage(saveKey);
+    document.getElementById('clear-everything').addEventListener('click', function() {
+      localStorage.clear();
+      location.InitializePage();
     });
 
     if(localStorage.getItem(saveKey + '-project-0-index') == null){
