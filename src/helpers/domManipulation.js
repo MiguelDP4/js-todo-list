@@ -1,44 +1,41 @@
 import {
-  projectModule
-} from "../project/projectModule";
+  projectModule,
+} from '../project/projectModule';
 
 export const DomModule = (() => {
-
   const hideElement = (elementId) => {
-    let element = document.getElementById(elementId);
+    const element = document.getElementById(elementId);
     element.style.display = 'none';
-  }
+  };
 
   const showElement = (elementId) => {
-    let element = document.getElementById(elementId);
+    const element = document.getElementById(elementId);
     element.style.display = 'block';
-  }
+  };
 
   const showElementFlex = (elementId) => {
-    let element = document.getElementById(elementId);
+    const element = document.getElementById(elementId);
     element.style.display = 'flex';
-  }
+  };
 
   const addOnClickListener = (elementID, method, params = null) => {
-    let element = document.getElementById(elementID);
-    element.addEventListener('click', function () {
-      if (params != null)
-        method(params);
-      else
-        method();
+    const element = document.getElementById(elementID);
+    element.addEventListener('click', () => {
+      if (params != null) method(params);
+      else method();
     });
-  }
+  };
 
   const addHtmlListItem = (classArray) => {
-    let newListItem = document.createElement('li');
+    const newListItem = document.createElement('li');
     for (let i = 0; i < classArray.length; i++) {
       newListItem.classList.add(classArray[i]);
     }
     return newListItem;
-  }
+  };
 
   const addHtmlAnchor = (classArray, href, text, id) => {
-    let newAnchor = document.createElement('a');
+    const newAnchor = document.createElement('a');
     for (let i = 0; i < classArray.length; i++) {
       newAnchor.classList.add(classArray[i]);
     }
@@ -46,20 +43,19 @@ export const DomModule = (() => {
     newAnchor.innerHTML = text;
     newAnchor.id = id;
     return newAnchor;
-  }
+  };
 
   const firstChildExists = (parent) => {
-    let tag = parent.childNodes[1];
+    const tag = parent.childNodes[1];
     if (tag) {
       return true;
-    } else {
-      return false;
     }
-  }
+    return false;
+  };
 
   const appendTitle = (parent, title) => {
     if (DomModule.firstChildExists(parent)) {
-      parent.innerHTML = "";
+      parent.innerHTML = '';
       parent.append(title);
     } else {
       parent.append(title);
@@ -67,73 +63,70 @@ export const DomModule = (() => {
   };
 
   const addHtmlButton = (classArray, type, id, text) => {
-    let newButton = document.createElement('button');
+    const newButton = document.createElement('button');
     for (let i = 0; i < classArray.length; i++) {
       newButton.classList.add(classArray[i]);
     }
-    newButton.setAttribute("type", type);
+    newButton.setAttribute('type', type);
     newButton.id = id;
     newButton.innerHTML = text;
     return newButton;
-  }
+  };
 
   const addHtmlHeading = (classArray, text, headingSize) => {
-    let newHeading = document.createElement(`h${headingSize}`);
+    const newHeading = document.createElement(`h${headingSize}`);
     for (let i = 0; i < classArray.length; i++) {
       newHeading.classList.add(classArray[i]);
     }
     newHeading.innerHTML = text;
     return newHeading;
-  }
+  };
 
   const addHtmlDiv = (classArray, id = null) => {
-    let newDiv = document.createElement('div');
+    const newDiv = document.createElement('div');
     for (let i = 0; i < classArray.length; i++) {
       newDiv.classList.add(classArray[i]);
     }
-    if (id != null)
-      newDiv.id = id;
+    if (id != null) newDiv.id = id;
     return newDiv;
-  }
+  };
 
   const addHtmlSelect = (classArray, id = null) => {
-    let newSelect = document.createElement('select');
+    const newSelect = document.createElement('select');
     for (let i = 0; i < classArray.length; i++) {
       newSelect.classList.add(classArray[i]);
     }
-    if (id != null)
-      newSelect.id = id;
+    if (id != null) newSelect.id = id;
     return newSelect;
-  }
+  };
 
-  const addHtmlInput = (classArray, type, placeHolder, id, text = "") => {
-    let newInput = document.createElement('input');
+  const addHtmlInput = (classArray, type, placeHolder, id, text = '') => {
+    const newInput = document.createElement('input');
     for (let i = 0; i < classArray.length; i++) {
       newInput.classList.add(classArray[i]);
     }
     newInput.id = id;
-    newInput.setAttribute("type", type);
-    newInput.setAttribute("placeholder", placeHolder);
+    newInput.setAttribute('type', type);
+    newInput.setAttribute('placeholder', placeHolder);
     newInput.value = text;
     return newInput;
-  }
+  };
 
   const addHtmlSpan = (classArray, text = '') => {
-    let newSpan = document.createElement('span');
+    const newSpan = document.createElement('span');
     for (let i = 0; i < classArray.length; i++) {
       newSpan.classList.add(classArray[i]);
     }
     newSpan.text = text;
     return newSpan;
-  }
+  };
 
   const addHTMLSection = (classArray, id = null) => {
-    let newSection = document.createElement('section');
+    const newSection = document.createElement('section');
     for (let i = 0; i < classArray.length; i++) {
       newSection.classList.add(classArray[i]);
     }
-    if (id != null)
-      newSection.id = id;
+    if (id != null) newSection.id = id;
     return newSection;
   };
 
@@ -152,6 +145,6 @@ export const DomModule = (() => {
     addHTMLSection,
     appendTitle,
     addHtmlSelect,
-    addHtmlSpan
+    addHtmlSpan,
   };
 })();

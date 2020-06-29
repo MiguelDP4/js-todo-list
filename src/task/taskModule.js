@@ -1,18 +1,18 @@
-import { taskFactory } from '../task/taskFactory'
+import { taskFactory } from './taskFactory';
 
-export const taskModule = (() => {  
-
+export const taskModule = (() => {
   const createTask = () => {
     let newIndex = 0;
-    if(taskArray.length != 0) {
-      newIndex = taskArray[taskArray.length-1].getIndex()+1;
+    if (taskArray.length != 0) {
+      newIndex = taskArray[taskArray.length - 1].getIndex() + 1;
     }
-    let newTask = taskFactory(newIndex);
+    const newTask = taskFactory(newIndex);
     taskArray.push(newTask);
   };
 
-  const getTaskArray = () => { return taskArray; }
-  return { createTask,
-           getTaskArray
-         };
+  const getTaskArray = () => taskArray;
+  return {
+    createTask,
+    getTaskArray,
+  };
 })();
