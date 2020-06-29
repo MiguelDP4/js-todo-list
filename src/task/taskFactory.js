@@ -9,13 +9,15 @@ export const taskFactory = (index = 0, title = "", description = "", dueDate = "
   let month = String(today.getMonth() + 1).padStart(2, '0');;
   let year = String(today.getFullYear());
   let tDueDate = `${year}-${month}-${day}`;
-  
+  let isComplete = false;
+
   const getIndex = () => tIndex ; 
   const getTitle = () => tTitle ; 
   const getDescription = () => tDescription ; 
   const getDueDate = () => tDueDate ; 
   const getPriority = () => tPriority ; 
   const getChecklist = () => tCheckList ; 
+  const getComplete = () => isComplete ; 
 
   const setTitle = pTitle => {
     tTitle = pTitle; 
@@ -33,17 +35,24 @@ export const taskFactory = (index = 0, title = "", description = "", dueDate = "
     tCheckList = pCheckList;
   }; 
   
+  const setComplete = pisComplete =>  {
+    isComplete = pisComplete;
+  }; 
+  
   return {  getTitle, 
     getDescription, 
     getDueDate, 
     getPriority, 
     getChecklist, 
+    getComplete, 
     setTitle, 
     setDescription, 
     setDueDate, 
     setPriority, 
     setChecklist,
-    getIndex };
+    getIndex,
+    setComplete
+   };
 
 
 };

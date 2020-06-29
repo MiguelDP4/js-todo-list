@@ -44,8 +44,7 @@ export const projectFactory = (index = 0, title = "Project", description = "", t
     let newTask = taskFactory(newIndex,
                               `Task ${newIndex} title`,
                               `Task ${newIndex} description`,
-                              );
-    console.log(newTask.getTitle());
+                              );    
     tTask.push(newTask);
   };
   
