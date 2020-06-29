@@ -1,12 +1,12 @@
 import './style.scss';
 import { DomModule } from './helpers/domManipulation';
 import { ConfigurePage } from './helpers/configurePage';
+import { projectModule } from './project/projectModule';
 
 window.onload = function () {
   ConfigurePage.InitializePage('todoList');
 };
 
-window.onbeforeunload = function(event) { }; 
 
 //window.BeforeUnloadEvent = function (){
 //  

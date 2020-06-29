@@ -26,7 +26,6 @@ export const ConfigurePage = (() => {
         drawProject(i);
       }
     }
-    
   };
 
   const drawProject = (projectIndex) => {
