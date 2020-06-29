@@ -3,18 +3,17 @@ import { projectModule } from '../project/projectModule';
 import { taskModule } from '../task/taskModule'
 
 export const ConfigurePage = (() => {
-  const InitializePage = () => {
-    
+  const InitializePage = (saveKey) => {
     document.getElementById('new-project').addEventListener('click', function() {
       let newProject = projectModule.createProject();
       drawProjectButton(newProject);      
     });
     
     document.getElementById('save-everything').addEventListener('click', function() {
-      projectModule.saveToStorage('todoList');
+      projectModule.saveToStorage(saveKey);
     });
 
-    if(localStorage.getItem('todoList-project-0-index') == null){
+    if(localStorage.getItem(saveKey + '-project-0-index') == null){
       drawProjectButton(projectModule.createProject());
       projectModule.getProjectByIndex(0).createTask();
       drawProject(0);
@@ -22,7 +21,7 @@ export const ConfigurePage = (() => {
       let thisProject = projectModule.getProjectByIndex(0);
       updateTasks(divCardContainer, thisProject);
     } else {      
-      projectModule.loadFromStorage('todoList');
+      projectModule.loadFromStorage(saveKey);
       for(let i = 0; i < projectModule.getProjectAmount; i++){        
         drawProject(i);
       }

@@ -3,10 +3,10 @@ import { DomModule } from './helpers/domManipulation';
 import { ConfigurePage } from './helpers/configurePage';
 
 window.onload = function () {
-  ConfigurePage.InitializePage();
+  ConfigurePage.InitializePage('todoList');
 };
 
-window.onbeforeunload = function(event) { alert("Hello! I am an alert box!!"); }; 
+window.onbeforeunload = function(event) { }; 
 
 //window.BeforeUnloadEvent = function (){
 //  
