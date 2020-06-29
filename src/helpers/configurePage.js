@@ -12,7 +12,7 @@ export const ConfigurePage = (() => {
     document.getElementById('save-everything').addEventListener('click', function() {
       projectModule.saveToStorage('todoList');
     });
-    if(localStorage.getItem('todoList') == null){
+    if(localStorage.getItem('todoList-project-0-index') == null){
       drawProjectButton(projectModule.createProject());
       projectModule.getProjectByIndex(0).createTask();
       drawProject(0);
