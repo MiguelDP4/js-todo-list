@@ -4,7 +4,7 @@ import { ConfigurePage } from '../helpers/configurePage';
 
 export const projectModule = (() => {
   
-  const projectArray = [];
+  let projectArray = [];
   
   const createProject = () => {
     let newIndex = 0;

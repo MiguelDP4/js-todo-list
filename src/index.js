@@ -3,12 +3,13 @@ import { DomModule } from './helpers/domManipulation';
 import { ConfigurePage } from './helpers/configurePage';
 import { projectModule } from './project/projectModule';
 
-window.onload = function () {
-  let keyStorage = 'todoList';
-  ConfigurePage.InitializePage(keyStorage);
+let keyStorage = 'todoList';
 
-  window.addEventListener("beforeunload", function(event) {  
-    projectModule.saveToStorage(keyStorage);    
-  });
+window.onload = function () {
+  ConfigurePage.InitializePage(keyStorage);
 };
 
+window.addEventListener("beforeunload", function(event) {
+  if(projectModule.getProjectAmount != 0)
+    projectModule.saveToStorage(keyStorage);    
+});
