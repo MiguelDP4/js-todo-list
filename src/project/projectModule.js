@@ -31,6 +31,10 @@ export const projectModule = (() => {
     return projectArray.length;
   };
 
+  const cleanProject = () => {
+    projectArray = [];
+  };
+
   const loadFromStorage = (key) => {
     let i = 0;
     while(localStorage.getItem(`${key}-project-${i}-index`) != null){
@@ -66,5 +70,5 @@ export const projectModule = (() => {
       }
     }
   }
-  return { createProject, getProjectByIndex, getProjectAmount, loadFromStorage, saveToStorage };
+  return { createProject, getProjectByIndex, getProjectAmount, loadFromStorage, saveToStorage, cleanProject };
 })();

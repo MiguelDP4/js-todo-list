@@ -11,7 +11,7 @@ export const ConfigurePage = (() => {
     
     document.getElementById('clear-everything').addEventListener('click', function() {
       localStorage.clear();
-      location.InitializePage();
+      projectModule.cleanProject();      
     });
 
     if(localStorage.getItem(saveKey + '-project-0-index') == null){
