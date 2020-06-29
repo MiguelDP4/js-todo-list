@@ -3,13 +3,17 @@ import { projectModule } from '../project/projectModule';
 import { taskModule } from '../task/taskModule'
 
 export const ConfigurePage = (() => {
-  const InitializePage = () => {    
-    DomModule.addOnClickListener('new-project', projectModule.createProject);
+  const InitializePage = () => {
+    document.getElementById('new-project').addEventListener('click', function() {
+      let newProject = projectModule.createProject();
+      drawProjectButton(newProject);
+      console.log(newProject.getTitle());
+    });
     document.getElementById('save-everything').addEventListener('click', function() {
       projectModule.saveToStorage('todoList');
     });
     if(localStorage.getItem('todoList') == null){
-      projectModule.createProject();
+      drawProjectButton(projectModule.createProject());
       projectModule.getProjectByIndex(0).createTask();
       drawProject(0);
       let divCardContainer = document.getElementById(`task-container-project-0`);

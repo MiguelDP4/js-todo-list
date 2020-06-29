@@ -13,7 +13,7 @@ export const projectModule = (() => {
     }
     let newProject = projectFactory(newIndex);
     projectArray.push(newProject);
-    ConfigurePage.drawProjectButton(newProject);
+    return newProject;
   };
 
   const getProjectByIndex = (index) => {
@@ -34,7 +34,8 @@ export const projectModule = (() => {
   const loadFromStorage = (key) => {
     let i = 0;
     while(localStorage.getItem(`${key}-project-${i}-index`) != null){
-      createProject();
+      let newProject = createProject();
+      ConfigurePage.drawProjectButton(newProject);
       projectArray[i].setTitle(localStorage.getItem(`${key}-project-${i}-title`));
       projectArray[i].setDescription(localStorage.getItem(`${key}-project-${i}-description`));
       projectArray[i].getIndex(localStorage.getItem(`${key}-project-${i}-index`));
