@@ -16,7 +16,12 @@ export const ConfigurePage = (() => {
       let thisProject = projectModule.getProjectByIndex(0);
       updateTasks(divCardContainer, thisProject);
     } else {
+      console.log('Theres saved data');
       projectModule.loadFromStorage('todoList');
+      for(let i = 0; i < projectModule.getProjectAmount; i++){
+        console.log(str(i));
+        drawProject(i);
+      }
     }
     
   };
