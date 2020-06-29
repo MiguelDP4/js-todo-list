@@ -100,9 +100,16 @@ export const ConfigurePage = (() => {
   }
 
   const drawCard = (projectObject, taskObject) => {    
-    let cardContainer = DomModule.addHtmlDiv(['card', 'm-2','card-container'],`task-${taskObject.getIndex()}`);
+    let cardContainer = DomModule.addHtmlDiv(['card', 'm-2','card-container'],`task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     let cardBody = DomModule.addHtmlDiv(['card-body'],0);
     
+    if(taskObject.getPriority() == 1)
+      cardContainer.style.backgroundColor = 'greenyellow';
+    if(taskObject.getPriority() == 2)
+      cardContainer.style.backgroundColor = '#ffd9ad';
+    if(taskObject.getPriority() == 3)
+      cardContainer.style.backgroundColor = '#ffadad';
+
     //Card title heading
     let cardTitleHeading = DomModule.addHtmlHeading(['card-title'], taskObject.getTitle(), 5);
     cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
@@ -198,22 +205,24 @@ export const ConfigurePage = (() => {
     defaultOption.selected = 'selected';
     selectPriorityTag.append(defaultOption);
     let newOption1 = document.createElement('option');
-    newOption1.innerHTML = 'Low';
+    newOption1.innerHTML = 'Low Priority';
     newOption1.value = '1';
     selectPriorityTag.append(newOption1);
     let newOption2 = document.createElement('option');
-    newOption2.innerHTML = 'Medium';
+    newOption2.innerHTML = 'Medium Priority';
     newOption2.value = '2';
     selectPriorityTag.append(newOption2);
     let newOption3 = document.createElement('option');
-    newOption3.innerHTML = 'High';
+    newOption3.innerHTML = 'High Priority';
     newOption3.value = '3';
     selectPriorityTag.append(newOption3);
-    
+    selectPriorityTag.selectedIndex = taskObject.getPriority();
 
     selectContainer.append(selectPriorityTag);
     selectPriorityTag.addEventListener('change', function() {
       taskObject.setPriority(Number(selectPriorityTag.value));
+      let divCardContainer = document.getElementById(`task-container-project-${projectObject.getIndex()}`);
+      updateTasks(divCardContainer, projectObject);
     });
     return selectContainer;
   }
