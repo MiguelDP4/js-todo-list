@@ -9,5 +9,7 @@ window.onload = function initialActions() {
 };
 
 window.addEventListener('beforeunload', () => {
-  if (projectModule.getProjectAmount !== 0) projectModule.saveToStorage(keyStorage);
+  if (projectModule.getProjectAmount !== 0) {
+    projectModule.saveToStorage(keyStorage);
+  }
 });

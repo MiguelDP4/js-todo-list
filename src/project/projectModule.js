@@ -1,6 +1,6 @@
 import { projectFactory } from './projectFactory';
 // import { CreateDomElement } from '../helpers/createDomElements';
-import { ConfigurePage } from '../helpers/configurePage';
+// import { ConfigurePage } from '../helpers/configurePage';
 
 export const projectModule = (() => {
   let projectArray = [];
@@ -14,6 +14,9 @@ export const projectModule = (() => {
     projectArray.push(newProject);
     return newProject;
   };
+
+  const getProjectArray = () => projectArray;
+  const setProjectArray = (i) => projectArray[i];
 
   const getProjectByIndex = (index) => {
     let i = 0;
@@ -30,27 +33,6 @@ export const projectModule = (() => {
 
   const cleanProject = () => {
     projectArray = [];
-  };
-
-  const loadFromStorage = (key) => {
-    let i = 0;
-    while (localStorage.getItem(`${key}-project-${i}-index`) != null) {
-      const newProject = createProject();
-      ConfigurePage.drawProjectButton(newProject);
-      projectArray[i].setTitle(localStorage.getItem(`${key}-project-${i}-title`));
-      projectArray[i].setDescription(localStorage.getItem(`${key}-project-${i}-description`));
-      projectArray[i].getIndex(localStorage.getItem(`${key}-project-${i}-index`));
-      let j = 0;
-      while (localStorage.getItem(`${key}-project-${i}-task-${j}-index`) != null) {
-        projectArray[i].createTask();
-        projectArray[i].getTaskByIndex(j).setTitle(localStorage.getItem(`${key}-project-${i}-task-${j}-title`));
-        projectArray[i].getTaskByIndex(j).setDescription(localStorage.getItem(`${key}-project-${i}-task-${j}-description`));
-        projectArray[i].getTaskByIndex(j).setPriority(localStorage.getItem(`${key}-project-${i}-task-${j}-priority`));
-        projectArray[i].getTaskByIndex(j).setDueDate(localStorage.getItem(`${key}-project-${i}-task-${j}-duedate`));
-        j += 1;
-      }
-      i += 1;
-    }
   };
 
   const saveToStorage = (key) => {
@@ -71,9 +53,10 @@ export const projectModule = (() => {
     createProject,
     getProjectByIndex,
     getProjectAmount,
-    loadFromStorage,
     saveToStorage,
     cleanProject,
+    getProjectArray,
+    setProjectArray,
   };
 })();
 
