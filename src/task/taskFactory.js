@@ -1,4 +1,4 @@
-export const taskFactory = (index = 0, title = '', description = '', dueDate = '01/01/1990', priority = 1, checkList = []) => {
+export const taskFactory = (index = 0, title = '', description = '', priority = 1, checkList = []) => {
   const tIndex = index;
   let tTitle = title;
   let tDescription = description;
@@ -55,3 +55,5 @@ export const taskFactory = (index = 0, title = '', description = '', dueDate = '
     setComplete,
   };
 };
+
+export default taskFactory;

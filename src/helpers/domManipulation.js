@@ -1,6 +1,3 @@
-import {
-  projectModule,
-} from '../project/projectModule';
 
 export const DomModule = (() => {
   const hideElement = (elementId) => {
@@ -21,14 +18,14 @@ export const DomModule = (() => {
   const addOnClickListener = (elementID, method, params = null) => {
     const element = document.getElementById(elementID);
     element.addEventListener('click', () => {
-      if (params != null) method(params);
+      if (params !== null) method(params);
       else method();
     });
   };
 
   const addHtmlListItem = (classArray) => {
     const newListItem = document.createElement('li');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newListItem.classList.add(classArray[i]);
     }
     return newListItem;
@@ -36,7 +33,7 @@ export const DomModule = (() => {
 
   const addHtmlAnchor = (classArray, href, text, id) => {
     const newAnchor = document.createElement('a');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newAnchor.classList.add(classArray[i]);
     }
     newAnchor.href = href;
@@ -64,7 +61,7 @@ export const DomModule = (() => {
 
   const addHtmlButton = (classArray, type, id, text) => {
     const newButton = document.createElement('button');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newButton.classList.add(classArray[i]);
     }
     newButton.setAttribute('type', type);
@@ -75,7 +72,7 @@ export const DomModule = (() => {
 
   const addHtmlHeading = (classArray, text, headingSize) => {
     const newHeading = document.createElement(`h${headingSize}`);
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newHeading.classList.add(classArray[i]);
     }
     newHeading.innerHTML = text;
@@ -84,7 +81,7 @@ export const DomModule = (() => {
 
   const addHtmlDiv = (classArray, id = null) => {
     const newDiv = document.createElement('div');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newDiv.classList.add(classArray[i]);
     }
     if (id != null) newDiv.id = id;
@@ -93,7 +90,7 @@ export const DomModule = (() => {
 
   const addHtmlSelect = (classArray, id = null) => {
     const newSelect = document.createElement('select');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newSelect.classList.add(classArray[i]);
     }
     if (id != null) newSelect.id = id;
@@ -102,7 +99,7 @@ export const DomModule = (() => {
 
   const addHtmlInput = (classArray, type, placeHolder, id, text = '') => {
     const newInput = document.createElement('input');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newInput.classList.add(classArray[i]);
     }
     newInput.id = id;
@@ -114,7 +111,7 @@ export const DomModule = (() => {
 
   const addHtmlSpan = (classArray, text = '') => {
     const newSpan = document.createElement('span');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newSpan.classList.add(classArray[i]);
     }
     newSpan.text = text;
@@ -123,7 +120,7 @@ export const DomModule = (() => {
 
   const addHTMLSection = (classArray, id = null) => {
     const newSection = document.createElement('section');
-    for (let i = 0; i < classArray.length; i++) {
+    for (let i = 0; i < classArray.length; i += 1) {
       newSection.classList.add(classArray[i]);
     }
     if (id != null) newSection.id = id;
@@ -148,3 +145,5 @@ export const DomModule = (() => {
     addHtmlSpan,
   };
 })();
+
+export default DomModule;

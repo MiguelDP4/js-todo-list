@@ -1,7 +1,25 @@
 import { DomModule } from './domManipulation';
 import { projectModule } from '../project/projectModule';
+import { CreateDomElement } from './createDomElements';
 
 export const ConfigurePage = (() => {
+  const drawProjectButton = (projectElement) => {
+    const newListItem = DomModule.addHtmlListItem(['nav-item']);
+    const projectId = `link-project-${projectElement.getIndex()}`;
+    const newAnchor = DomModule.addHtmlAnchor(['nav-link'], '#', projectElement.getTitle(), projectId);
+
+    newListItem.append(newAnchor);
+    const projectList = document.getElementById('project-list');
+    projectList.append(newListItem);
+
+    DomModule.addOnClickListener(projectId, () => {
+      drawProject(projectElement.getIndex());
+      const divCardContainer = document.getElementById(`task-container-project-${projectElement.getIndex()}`);
+      const thisProject = projectModule.getProjectByIndex(projectElement.getIndex());
+      updateTasks(divCardContainer, thisProject);
+    });
+  };
+
   const InitializePage = (saveKey) => {
     document.getElementById('new-project').addEventListener('click', () => {
       const newProject = projectModule.createProject();
@@ -23,7 +41,7 @@ export const ConfigurePage = (() => {
       updateTasks(divCardContainer, thisProject);
     } else {
       projectModule.loadFromStorage(saveKey);
-      for (let i = 0; i < projectModule.getProjectAmount; i++) {
+      for (let i = 0; i < projectModule.getProjectAmount; i += 1) {
         drawProject(i);
       }
     }
@@ -90,7 +108,7 @@ export const ConfigurePage = (() => {
 
   const updateTasks = (divCardContainer, thisProject) => {
     divCardContainer.innerHTML = '';
-    for (let i = 0; i < thisProject.listTasks().length; i++) {
+    for (let i = 0; i < thisProject.listTasks().length; i += 1) {
       if (!thisProject.getTaskByIndex(i).getComplete()) {
         const newCard = drawCard(thisProject, thisProject.getTaskByIndex(i));
         divCardContainer.append(newCard);
@@ -102,16 +120,16 @@ export const ConfigurePage = (() => {
     const cardContainer = DomModule.addHtmlDiv(['card', 'm-2', 'card-container'], `task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     const cardBody = DomModule.addHtmlDiv(['card-body'], 0);
 
-    if (taskObject.getPriority() == 1) cardContainer.style.backgroundColor = 'greenyellow';
-    if (taskObject.getPriority() == 2) cardContainer.style.backgroundColor = '#ffd9ad';
-    if (taskObject.getPriority() == 3) cardContainer.style.backgroundColor = '#ffadad';
+    if (taskObject.getPriority() === 1) cardContainer.style.backgroundColor = 'greenyellow';
+    if (taskObject.getPriority() === 2) cardContainer.style.backgroundColor = '#ffd9ad';
+    if (taskObject.getPriority() === 3) cardContainer.style.backgroundColor = '#ffadad';
 
     // Card title heading
     const cardTitleHeading = DomModule.addHtmlHeading(['card-title'], taskObject.getTitle(), 5);
     cardTitleHeading.id = `task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardTitleHeading.addEventListener('click', () => {
-      const cardTitleEditorContainer = drawInputFieldTitle(projectObject, taskObject);
+      const cardTitleEditorContainer = CreateDomElement.drawInputFieldTitle(projectObject, taskObject);
       cardBody.prepend(cardTitleEditorContainer);
       DomModule.hideElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     });
@@ -122,7 +140,7 @@ export const ConfigurePage = (() => {
     cardDescription.id = `task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`;
 
     cardDescription.addEventListener('click', () => {
-      const cardDescriptionEditorContainer = drawInputFieldDescription(projectObject, taskObject);
+      const cardDescriptionEditorContainer = CreateDomElement.drawInputFieldDescription(projectObject, taskObject);
       cardBody.insertBefore(cardDescriptionEditorContainer, cardDescription);
       DomModule.hideElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
     });
@@ -141,56 +159,10 @@ export const ConfigurePage = (() => {
     divButtonsCard.appendChild(buttonComplete);
 
     cardBody.append(drawSelectPriority(projectObject, taskObject));
-    cardBody.append(drawDateInput(projectObject, taskObject));
+    cardBody.append(CreateDomElement.drawDateInput(projectObject, taskObject));
     cardBody.appendChild(divButtonsCard);
     cardContainer.appendChild(cardBody);
     return cardContainer;
-  };
-
-  const drawInputFieldTitle = (projectObject, taskObject) => {
-    const cardTitleEditorContainer = DomModule.addHtmlDiv(['input-group', 'pb-3'], `input-title-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    const cardTitleInput = DomModule.addHtmlInput(['form-control'], 'text', 'Write your task title', `input-title-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, taskObject.getTitle());
-
-    const cardTitleButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], 'button', `button-save-input-name-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, 'Save');
-    const cardTitleButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
-
-    cardTitleButtonSave.addEventListener('click', () => {
-      taskObject.setTitle(cardTitleInput.value);
-      const elementTitle = document.getElementById(`input-title-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      elementTitle.remove();
-
-      DomModule.showElement(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      const taskTitle = document.getElementById(`task-title-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      taskTitle.innerHTML = taskObject.getTitle();
-    });
-
-    cardTitleButtonContainer.append(cardTitleButtonSave);
-    cardTitleEditorContainer.append(cardTitleInput);
-    cardTitleEditorContainer.append(cardTitleButtonContainer);
-    return cardTitleEditorContainer;
-  };
-
-  const drawInputFieldDescription = (projectObject, taskObject) => {
-    const cardDescriptionEditorContainer = DomModule.addHtmlDiv(['input-group', 'pb-3'], `input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-    const cardDescriptionInput = DomModule.addHtmlInput(['form-control'], 'text', 'Write your task description', `input-description-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, taskObject.getDescription());
-
-    const cardDescriptionButtonSave = DomModule.addHtmlButton(['btn', 'btn-outline-secondary'], 'button', `button-save-input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`, 'Save');
-    const cardDescriptionButtonContainer = DomModule.addHtmlDiv(['input-group-append']);
-
-    cardDescriptionButtonSave.addEventListener('click', () => {
-      taskObject.setDescription(cardDescriptionInput.value);
-      const elementDescription = document.getElementById(`input-description-group-task-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      elementDescription.remove();
-
-      DomModule.showElement(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      const taskDescription = document.getElementById(`task-description-${projectObject.getIndex()}-${taskObject.getIndex()}`);
-      taskDescription.innerHTML = taskObject.getDescription();
-    });
-
-    cardDescriptionButtonContainer.append(cardDescriptionButtonSave);
-    cardDescriptionEditorContainer.append(cardDescriptionInput);
-    cardDescriptionEditorContainer.append(cardDescriptionButtonContainer);
-    return cardDescriptionEditorContainer;
   };
 
   const drawSelectPriority = (projectObject, taskObject) => {
@@ -223,39 +195,9 @@ export const ConfigurePage = (() => {
     return selectContainer;
   };
 
-  const drawDateInput = (projectObject, taskObject) => {
-    const inputContainer = DomModule.addHtmlDiv(['input-group', 'mb-3']);
-    const inputObject = DomModule.addHtmlInput(['w-100'], 'date', '', `date-input-${projectObject.getIndex()}-${taskObject.getIndex()}`, '');
-    inputObject.value = taskObject.getDueDate();
-    inputContainer.append(inputObject);
-    inputObject.addEventListener('change', () => {
-      taskObject.setDueDate(inputObject.value);
-    });
-    return inputContainer;
-  };
-
-  const drawProjectButton = (projectElement) => {
-    const newListItem = DomModule.addHtmlListItem(['nav-item']);
-    const projectId = `link-project-${projectElement.getIndex()}`;
-    const newAnchor = DomModule.addHtmlAnchor(['nav-link'], '#', projectElement.getTitle(), projectId);
-
-    newListItem.append(newAnchor);
-    const projectList = document.getElementById('project-list');
-    projectList.append(newListItem);
-
-    DomModule.addOnClickListener(projectId, () => {
-      drawProject(projectElement.getIndex());
-      const divCardContainer = document.getElementById(`task-container-project-${projectElement.getIndex()}`);
-      const thisProject = projectModule.getProjectByIndex(projectElement.getIndex());
-      updateTasks(divCardContainer, thisProject);
-    });
-  };
-
-  const changeBackGroundCardColor = () => {
-
-  };
-
   return {
-    InitializePage, drawProjectButton, drawProject, drawCard,
+    InitializePage, drawProject, drawCard, drawProjectButton,
   };
 })();
+
+export default ConfigurePage;

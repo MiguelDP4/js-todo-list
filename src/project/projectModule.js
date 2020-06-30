@@ -1,5 +1,5 @@
 import { projectFactory } from './projectFactory';
-import { taskFactory } from '../task/taskFactory';
+// import { CreateDomElement } from '../helpers/createDomElements';
 import { ConfigurePage } from '../helpers/configurePage';
 
 export const projectModule = (() => {
@@ -7,7 +7,7 @@ export const projectModule = (() => {
 
   const createProject = () => {
     let newIndex = 0;
-    if (projectArray.length != 0) {
+    if (projectArray.length !== 0) {
       newIndex = projectArray[projectArray.length - 1].getIndex() + 1;
     }
     const newProject = projectFactory(newIndex);
@@ -18,7 +18,7 @@ export const projectModule = (() => {
   const getProjectByIndex = (index) => {
     let i = 0;
     while (i < projectArray.length) {
-      if (projectArray[i].getIndex() == index) {
+      if (projectArray[i].getIndex() === index) {
         return projectArray[i];
       }
       i += 1;
@@ -68,6 +68,13 @@ export const projectModule = (() => {
     }
   };
   return {
-    createProject, getProjectByIndex, getProjectAmount, loadFromStorage, saveToStorage, cleanProject,
+    createProject,
+    getProjectByIndex,
+    getProjectAmount,
+    loadFromStorage,
+    saveToStorage,
+    cleanProject,
   };
 })();
+
+export default projectModule;

@@ -1,7 +1,7 @@
 
 import { taskFactory } from '../task/taskFactory';
 
-export const projectFactory = (index = 0, title = 'Project', description = '', tasks = []) => {
+export const projectFactory = (index = 0, title = 'Project', description = '') => {
   let tDescription = description;
   const tTask = [];
   const tIndex = index;
@@ -28,7 +28,7 @@ export const projectFactory = (index = 0, title = 'Project', description = '', t
   const getTaskByIndex = (index) => {
     let i = 0;
     while (i < tTask.length) {
-      if (tTask[i].getIndex() == index) {
+      if (tTask[i].getIndex() === index) {
         return tTask[i];
       }
       i += 1;
@@ -38,7 +38,7 @@ export const projectFactory = (index = 0, title = 'Project', description = '', t
 
   const createTask = () => {
     let newIndex = 0;
-    if (tTask.length != 0) {
+    if (tTask.length !== 0) {
       newIndex = tTask[tTask.length - 1].getIndex() + 1;
     }
     const newTask = taskFactory(newIndex,
@@ -59,3 +59,5 @@ export const projectFactory = (index = 0, title = 'Project', description = '', t
     createTask,
   };
 };
+
+export default projectFactory;
