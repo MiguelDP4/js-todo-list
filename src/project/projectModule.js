@@ -1,6 +1,4 @@
 import { projectFactory } from './projectFactory';
-// import { CreateDomElement } from '../helpers/createDomElements';
-// import { ConfigurePage } from '../helpers/configurePage';
 
 export const projectModule = (() => {
   let projectArray = [];

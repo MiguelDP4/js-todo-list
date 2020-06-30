@@ -67,6 +67,8 @@ sudo apt update
 sudo apt install npm
 ```
 
+
+:Show
 Local Installation Webpack
 
 To install the latest release or a specific version, run one of the following commands:
@@ -89,7 +91,8 @@ You can then compile the code with the next command
 ```
 npm start
 ```
-After this, a main.js file will be created and written in the dist folder. Copy and paste index.html and main.js wherever you want and you can now see them in your browser.
+
+Now you can make changes on src files to change the behavior of the application
 
 ## Authors
 

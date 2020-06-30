@@ -154,7 +154,7 @@ export const CreateDomElement = (() => {
 
   const updateTasks = (divCardContainer, thisProject) => {
     divCardContainer.innerHTML = '';
-    for (let i = 0; i < thisProject.listTasks().length; i += 1) {      
+    for (let i = 0; i < thisProject.listTasks().length; i += 1) {
       if (!thisProject.getTaskByIndex(i).getComplete() || thisProject.getTaskByIndex(i).getComplete() === 'false') {
         const newCard = drawCard(thisProject, thisProject.getTaskByIndex(i));
         divCardContainer.append(newCard);
