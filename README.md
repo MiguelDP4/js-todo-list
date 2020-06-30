@@ -85,14 +85,13 @@ The following NPM installation will make webpack available globally:
 ```
 npm install --global webpack
 ```
-
-You can then compile the code with the next command
-
-```
-npm start
-```
-
 Now you can make changes on src files to change the behavior of the application
+
+finally if you want to compile the code run this command
+
+```
+npm run build
+```
 
 ## Authors
 
