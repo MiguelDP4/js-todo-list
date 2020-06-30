@@ -46,6 +46,7 @@ export const projectModule = (() => {
         localStorage.setItem(`${key}-project-${i}-task-${j}-description`, projectArray[i].getTaskByIndex(j).getDescription());
         localStorage.setItem(`${key}-project-${i}-task-${j}-priority`, projectArray[i].getTaskByIndex(j).getPriority());
         localStorage.setItem(`${key}-project-${i}-task-${j}-duedate`, projectArray[i].getTaskByIndex(j).getDueDate());
+        localStorage.setItem(`${key}-project-${i}-task-${j}-complete`, projectArray[i].getTaskByIndex(j).getComplete());
       }
     }
   };

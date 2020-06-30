@@ -15,6 +15,7 @@ export const ConfigurePage = (() => {
       CreateDomElement.updateTasks(divCardContainer, newProject);
     } else {
       CreateDomElement.loadFromStorage(saveKey);
+      CreateDomElement.cleanLocalStorage();
     }
   };
 

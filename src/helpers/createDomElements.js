@@ -95,7 +95,6 @@ export const CreateDomElement = (() => {
 
   const updateColorPriority = (projectObject, taskObject) => {
     const idElement = `task-${projectObject.getIndex()}-${taskObject.getIndex()}`;
-    console.log(idElement);
     const cardElement = document.getElementById(idElement);
 
     if (taskObject.getPriority() === 1 || taskObject.getPriority() === '1') cardElement.style.backgroundColor = 'greenyellow';
@@ -135,7 +134,7 @@ export const CreateDomElement = (() => {
 
     cardBody.appendChild(cardDescription);
     const divButtonsCard = DomModule.addHtmlDiv(['d-flex', 'flex-row', 'justify-content-between', 'mt-3']);
-    const buttonComplete = DomModule.addHtmlAnchor(['card-link', 'm-0', 'btn', 'btn-primary'], '#', 'Complete', 0);
+    const buttonComplete = DomModule.addHtmlAnchor(['card-link', 'm-0', 'btn', 'btn-danger'], '#', 'Delete', 0);
 
     buttonComplete.addEventListener('click', () => {
       taskObject.setComplete(true);
@@ -155,8 +154,8 @@ export const CreateDomElement = (() => {
 
   const updateTasks = (divCardContainer, thisProject) => {
     divCardContainer.innerHTML = '';
-    for (let i = 0; i < thisProject.listTasks().length; i += 1) {
-      if (!thisProject.getTaskByIndex(i).getComplete()) {
+    for (let i = 0; i < thisProject.listTasks().length; i += 1) {      
+      if (!thisProject.getTaskByIndex(i).getComplete() || thisProject.getTaskByIndex(i).getComplete() === 'false') {
         const newCard = drawCard(thisProject, thisProject.getTaskByIndex(i));
         divCardContainer.append(newCard);
       }
@@ -277,6 +276,7 @@ export const CreateDomElement = (() => {
         projectModule.setProjectArray(i).getTaskByIndex(j).setDescription(localStorage.getItem(`${saveKey}-project-${i}-task-${j}-description`));
         projectModule.setProjectArray(i).getTaskByIndex(j).setPriority(localStorage.getItem(`${saveKey}-project-${i}-task-${j}-priority`));
         projectModule.setProjectArray(i).getTaskByIndex(j).setDueDate(localStorage.getItem(`${saveKey}-project-${i}-task-${j}-duedate`));
+        projectModule.setProjectArray(i).getTaskByIndex(j).setComplete(localStorage.getItem(`${saveKey}-project-${i}-task-${j}-complete`));
         j += 1;
       }
       i += 1;
